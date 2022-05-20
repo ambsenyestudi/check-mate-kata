@@ -4,5 +4,6 @@
     {
         GameId Add(GameLayout gameLayout);
         GameLayout GetBy(GameId gameId);
+        void Replace(GameLayout gameLayout);
     }
 }

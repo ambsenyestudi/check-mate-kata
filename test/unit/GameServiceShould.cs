@@ -32,11 +32,22 @@ namespace Checkmate.Detector.Unit.Test
             gameRepository.Verify(x => x.Add(It.IsAny<GameLayout>()));
             Assert.Equal(GAME_ID, gameId);
         }
-        [Fact]
-        public void Not_Move_If_Square_Is_Empty()
+
+        [Theory]
+        [InlineData("a2","a3")]
+        [InlineData("b7", "b8")]
+        public void Not_Move_If_Square_Is_Empty(string startPos, string endPos)
         {
             var gameId = gameService.Load("Pd6", "Ke8");
-            Assert.False(gameService.TryMove("a2", "a3", gameId));
+            Assert.False(gameService.TryMove(startPos, endPos, gameId));
+        }
+
+        public void Move_Piece()
+        {
+            var expected = new GameLayout(GAME_ID, new string[] { "Pd7", "Ke8" });
+            var gameId = gameService.Load("Pd6", "Ke8");
+            Assert.True(gameService.TryMove("d6", "d7", gameId));
+            gameRepository.Verify(x => x.Replace(expected));
         }
     }
 }

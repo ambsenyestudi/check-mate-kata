@@ -13,5 +13,10 @@ namespace Checkmate.Detector.Domain.Game
         {
             throw new NotImplementedException();
         }
+
+        public void Replace(GameLayout gameLayout)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
