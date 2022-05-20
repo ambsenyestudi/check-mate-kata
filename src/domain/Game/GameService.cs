@@ -20,7 +20,7 @@ namespace Checkmate.Detector.Domain
                 : gameId;
         }
 
-        public void Move(string v1, string v2)
+        public bool TryMove(string startPosition, string endPosition)
         {
             throw new NotImplementedException();
         }

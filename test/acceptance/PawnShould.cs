@@ -21,7 +21,7 @@ namespace Checkmate.Detector.Acceptance.Test
         {
 
             gameService.Load("Pd6", "Ke8");
-            gameService.Move("d6", "d7");
+            gameService.TryMove("d6", "d7");
             Assert.True(checkService.IsCheck());
         }
     }
