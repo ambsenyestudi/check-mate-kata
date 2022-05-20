@@ -4,7 +4,12 @@ namespace Checkmate.Detector.Domain.Game
 {
     public class GameRepository : IGameRepository
     {
-        public GameLayout Add(GameLayout gameLayout)
+        public GameId Add(GameLayout gameLayout)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GameLayout GetBy(GameId gameId)
         {
             throw new NotImplementedException();
         }

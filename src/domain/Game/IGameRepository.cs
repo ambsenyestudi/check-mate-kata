@@ -2,6 +2,7 @@
 {
     public interface IGameRepository
     {
-        GameLayout Add(GameLayout gameLayout);
+        GameId Add(GameLayout gameLayout);
+        GameLayout GetBy(GameId gameId);
     }
 }

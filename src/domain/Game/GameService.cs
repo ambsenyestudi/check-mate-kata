@@ -12,11 +12,12 @@ namespace Checkmate.Detector.Domain
             this.gameRepository = gameRepository;
         }
 
-        public bool IsLoaded { get; set; }
-
-        public void Load(string v1, string v2)
+        public GameId Load(params string[] pieces)
         {
-            throw new NotImplementedException();
+            var gameId = gameRepository.Add(new GameLayout(GameId.Empty, pieces));
+            return gameRepository.GetBy(gameId) == GameLayout.Empty 
+                ? GameId.Empty
+                : gameId;
         }
 
         public void Move(string v1, string v2)
