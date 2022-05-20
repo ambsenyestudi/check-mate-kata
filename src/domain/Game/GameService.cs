@@ -1,5 +1,6 @@
 ﻿using Checkmate.Detector.Domain.Game;
 using System;
+using System.Linq;
 
 namespace Checkmate.Detector.Domain
 {
@@ -20,9 +21,11 @@ namespace Checkmate.Detector.Domain
                 : gameId;
         }
 
-        public bool TryMove(string startPosition, string endPosition)
+        public bool TryMove(string startPosition, string endPosition, GameId gameId)
         {
-            throw new NotImplementedException();
+            var gameLayout = gameRepository.GetBy(gameId);
+
+            return gameLayout.IsPieceAt(startPosition);
         }
     }
 }

@@ -20,8 +20,8 @@ namespace Checkmate.Detector.Acceptance.Test
         public void Detect_Checkmate_When_King_At_Killing_Range()
         {
 
-            gameService.Load("Pd6", "Ke8");
-            gameService.TryMove("d6", "d7");
+            var gameId = gameService.Load("Pd6", "Ke8");
+            gameService.TryMove("d6", "d7", gameId);
             Assert.True(checkService.IsCheck());
         }
     }
