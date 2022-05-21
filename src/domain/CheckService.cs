@@ -12,7 +12,7 @@ namespace Checkmate.Detector.Domain
             this.gameRepository = gameRepository;
         }
 
-        public bool IsCheck()
+        public bool IsCheck(GameId gameService)
         {
             throw new NotImplementedException();
         }

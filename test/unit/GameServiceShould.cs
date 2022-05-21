@@ -42,10 +42,13 @@ namespace Checkmate.Detector.Unit.Test
             Assert.False(gameService.TryMove(startPos, endPos, gameId));
         }
 
+        [Fact]
         public void Move_Piece()
         {
             var expected = new GameLayout(GAME_ID, new string[] { "Pd7", "Ke8" });
+
             var gameId = gameService.Load("Pd6", "Ke8");
+            
             Assert.True(gameService.TryMove("d6", "d7", gameId));
             gameRepository.Verify(x => x.Replace(expected));
         }

@@ -28,7 +28,8 @@ namespace Checkmate.Detector.Domain
             {
                 return false;
             }
-            gameRepository.Replace(gameLayout.Move(new Move(startPosition, endPosition)));
+            var resultGameLayout = gameLayout.Move(new Move(startPosition, endPosition));
+            gameRepository.Replace(resultGameLayout);
             return true;
         }
     }
