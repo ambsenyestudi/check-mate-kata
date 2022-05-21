@@ -19,7 +19,7 @@ namespace Checkmate.Detector.Domain.Game
         }
 
         public string[] GetPieces() =>
-            pieces.Pieces;
+            pieces.Pieces.Select(x=>x.ToString()).ToArray();
 
         public GameLayout(GameId gameId, string[] pieces):this(gameId, new PieceCollection(pieces))
         {            

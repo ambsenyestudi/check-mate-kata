@@ -11,5 +11,8 @@ namespace Checkmate.Detector.Domain.Pieces
 
         internal bool IsPawn() =>
             Kind.Equals("P");
+
+        public override string ToString() =>
+            Kind + Position.ToString();
     }
 }

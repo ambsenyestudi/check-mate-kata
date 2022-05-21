@@ -1,5 +1,6 @@
 ﻿using Checkmate.Detector.Domain.Positions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Checkmate.Detector.Domain.Pieces
@@ -7,21 +8,21 @@ namespace Checkmate.Detector.Domain.Pieces
     public class PieceCollection
     {
         public static PieceCollection Empty { get; } = new PieceCollection(new string[0]);
-        public string[] Pieces { get; }
+        public Piece[] Pieces { get; }
 
-        public PieceCollection(string[] pieces)
+        public PieceCollection(IEnumerable<Piece> pieces) => (Pieces) = (pieces.ToArray());
+
+        public PieceCollection(string[] pieces) : this(pieces.Select(x => Piece.FromString(x)))
         {
-            Pieces = pieces;
         }
 
         public bool ContainsPosition(string startPosition) =>
-            Pieces.Any(x => x.Contains(startPosition, StringComparison.CurrentCultureIgnoreCase));
+            Pieces.Any(x => x.Position.Equals(Position.FromString(startPosition)));
 
         public PieceCollection MovePieceAt(Move move)
         {
-            var foundPiece = GetPiece(move.Start);
-            string[] movedPieces = UpdatePieces(move, foundPiece);
-            return new PieceCollection(movedPieces);
+            var foundPiece = Pieces.FirstOrDefault(x=>x.Position.Equals(move.Start));
+            return new PieceCollection(UpdatePieces(move, foundPiece));
         }
 
         public override bool Equals(object obj)
@@ -33,15 +34,15 @@ namespace Checkmate.Detector.Domain.Pieces
             }
             return Pieces.SequenceEqual(other.Pieces);
         }
-        private string[] UpdatePieces(Move move, string foundPiece)
+        private Piece[] UpdatePieces(Move move, Piece foundPiece)
         {
-            var movePieces = new string[Pieces.Length];
+            var movePieces = new Piece[Pieces.Length];
             for (int i = 0; i < Pieces.Length; i++)
             {
                 var piece = Pieces[i];
                 if (piece.Equals(foundPiece))
                 {
-                    piece = MovePiece(move, foundPiece);
+                    piece = new Piece(piece.Kind, move.End);
                 }
                 movePieces[i] = piece;
             }
@@ -49,17 +50,6 @@ namespace Checkmate.Detector.Domain.Pieces
             return movePieces;
         }
 
-        private string MovePiece(Move move, string foundPiece) =>
-           foundPiece.Replace(move.Start.ToString(), move.End.ToString());
-        private string GetPiece(Position position) =>
-            GetPiece(position.ToString());
-        private string GetPiece(string position)
-        {
-            if (!ContainsPosition(position))
-            {
-                return string.Empty;
-            }
-            return Pieces.First(x => x.Contains(position, StringComparison.CurrentCultureIgnoreCase));
-        }
+        
     }
 }
