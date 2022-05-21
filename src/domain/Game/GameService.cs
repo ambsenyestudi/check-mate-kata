@@ -1,4 +1,5 @@
 ﻿using Checkmate.Detector.Domain.Game;
+using Checkmate.Detector.Domain.Positions;
 using System;
 using System.Linq;
 

@@ -1,4 +1,5 @@
 ﻿using Checkmate.Detector.Domain.Pieces;
+using Checkmate.Detector.Domain.Positions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

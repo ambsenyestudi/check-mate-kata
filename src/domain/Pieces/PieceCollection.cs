@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Checkmate.Detector.Domain.Positions;
+using System;
 using System.Linq;
 
 namespace Checkmate.Detector.Domain.Pieces
@@ -18,7 +19,7 @@ namespace Checkmate.Detector.Domain.Pieces
 
         public PieceCollection MovePieceAt(Move move)
         {
-            var foundPiece = GetPiece(move.startPosition);
+            var foundPiece = GetPiece(move.Start);
             string[] movedPieces = UpdatePieces(move, foundPiece);
             return new PieceCollection(movedPieces);
         }
@@ -49,8 +50,9 @@ namespace Checkmate.Detector.Domain.Pieces
         }
 
         private string MovePiece(Move move, string foundPiece) =>
-           foundPiece.Replace(move.startPosition, move.endPosition);
-
+           foundPiece.Replace(move.Start.ToString(), move.End.ToString());
+        private string GetPiece(Position position) =>
+            GetPiece(position.ToString());
         private string GetPiece(string position)
         {
             if (!ContainsPosition(position))

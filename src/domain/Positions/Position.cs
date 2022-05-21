@@ -19,5 +19,8 @@ namespace Checkmate.Detector.Domain.Positions
                 Math.Pow(Column[0] - other.Column[0], 2) +
                 Math.Pow(Row - other.Row, 2));
         }
+
+        public override string ToString() =>
+            Column + Row;
     }
 }
