@@ -13,7 +13,7 @@ namespace Checkmate.Detector.Domain.Positions
             return new Position(input.Substring(0, 1), row);
         }
         public bool IsInFrontOf(Position other) =>
-            Column[0] > other.Column[0];
+            Row > other.Row;
         public int GetDistance(Position other)
         {
             return (int)Math.Sqrt(

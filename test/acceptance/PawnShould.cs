@@ -15,11 +15,13 @@ namespace Checkmate.Detector.Acceptance.Test
             checkService = new CheckService(gameRepository);
         }
 
-        [Fact]
-        public void Detect_Checkmate_When_King_At_Killing_Range()
+        [Theory]
+        [InlineData("Pc7", "Kd8")]
+        [InlineData("Pe7", "Kd8")]
+        public void Detect_Checkmate_When_King_At_Killing_Range(string pawn, string king)
         {
 
-            var gameId = gameService.Load("Pd7", "Ke8");
+            var gameId = gameService.Load(pawn, king);
             Assert.True(checkService.IsCheck(gameId));
         }
     }
