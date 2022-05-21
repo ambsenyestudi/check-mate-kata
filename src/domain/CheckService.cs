@@ -22,19 +22,12 @@ namespace Checkmate.Detector.Domain
             var attackPiece = Piece.FromString(pieces.First());
             if(attackPiece.IsPawn())
             {
-                return GetDistance(pieces) == 1;
+                var king = Piece.FromString(pieces.Last());
+                return attackPiece.Position.GetDistance(king.Position) == 1;
             }
             return false;
         }
 
-        private int GetDistance(string[] pieces)
-        {
-            var attackPiece = pieces.First();
-            var king = pieces.Last();
-            var startPosition = Position.FromString(attackPiece.Substring(1, 2));
-            var endPosition = Position.FromString(king.Substring(1, 2));
-            return endPosition.GetDistance(startPosition);
-        }
 
     }
 }
