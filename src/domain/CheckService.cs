@@ -1,4 +1,5 @@
 ﻿using Checkmate.Detector.Domain.Game;
+using Checkmate.Detector.Domain.Pieces;
 using Checkmate.Detector.Domain.Positions;
 using System;
 using System.Linq;
@@ -18,8 +19,8 @@ namespace Checkmate.Detector.Domain
         {
             var gameLayout = gameRepository.GetBy(gameId);
             var pieces = gameLayout.GetPieces();
-            var attackPiece = pieces.First();
-            if(IsPawn(attackPiece))
+            var attackPiece = Piece.FromString(pieces.First());
+            if(attackPiece.IsPawn())
             {
                 return GetDistance(pieces) == 1;
             }
@@ -35,7 +36,5 @@ namespace Checkmate.Detector.Domain
             return endPosition.GetDistance(startPosition);
         }
 
-        private bool IsPawn(string attackPiece) =>
-            attackPiece.StartsWith("P");
     }
 }
