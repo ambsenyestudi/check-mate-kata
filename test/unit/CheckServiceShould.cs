@@ -24,6 +24,12 @@ namespace Checkmate.Detector.Unit.Test
             checkService = new CheckService(gameRepository.Object);
         }
 
+        [Fact]
+        public void Ignore_When_Not_At_Kill_Distnace_Of_King()
+        {
+            Assert.False(checkService.IsCheck(GAME_ID));
+        }
+
         [Theory]
         [InlineData("Pd7", "Ke8")]
         public void Tell_When_Piece_Checks_King(string piece, string king)
