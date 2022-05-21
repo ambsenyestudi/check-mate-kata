@@ -1,7 +1,5 @@
 ﻿using Checkmate.Detector.Domain.Pieces;
 using Checkmate.Detector.Domain.Positions;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Checkmate.Detector.Domain.Game
@@ -25,8 +23,8 @@ namespace Checkmate.Detector.Domain.Game
         {            
         }
 
-        public bool IsPieceAt(string startPosition) =>
-            pieces.ContainsPosition(startPosition);
+        public bool IsPieceAt(Position start) =>
+            pieces.ContainsPosition(start);
 
         public GameLayout Move(Move move) =>
             new GameLayout(GameId, pieces.MovePieceAt(move));

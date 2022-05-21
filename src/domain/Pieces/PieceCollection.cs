@@ -16,8 +16,6 @@ namespace Checkmate.Detector.Domain.Pieces
         {
         }
 
-        public bool ContainsPosition(string startPosition) =>
-            Pieces.Any(x => x.Position.Equals(Position.FromString(startPosition)));
 
         public PieceCollection MovePieceAt(Move move)
         {
@@ -34,6 +32,10 @@ namespace Checkmate.Detector.Domain.Pieces
             }
             return Pieces.SequenceEqual(other.Pieces);
         }
+
+        public bool ContainsPosition(Position position) =>
+            Pieces.Any(x => x.Position.Equals(position));
+
         private Piece[] UpdatePieces(Move move, Piece foundPiece)
         {
             var movePieces = new Piece[Pieces.Length];
@@ -49,7 +51,6 @@ namespace Checkmate.Detector.Domain.Pieces
 
             return movePieces;
         }
-
         
     }
 }

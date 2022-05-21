@@ -1,6 +1,5 @@
 using Checkmate.Detector.Domain;
 using Checkmate.Detector.Domain.Game;
-using System;
 using Xunit;
 
 namespace Checkmate.Detector.Acceptance.Test

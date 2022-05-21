@@ -25,11 +25,14 @@ namespace Checkmate.Detector.Domain
         public bool TryMove(string startPosition, string endPosition, GameId gameId)
         {
             var gameLayout = gameRepository.GetBy(gameId);
-            if(!gameLayout.IsPieceAt(startPosition))
+            var start = Position.FromString(startPosition);
+            if(!gameLayout.IsPieceAt(start))
             {
                 return false;
             }
-            var resultGameLayout = gameLayout.Move(new Move(startPosition, endPosition));
+            var resultGameLayout = gameLayout.Move(
+                new Move(start,
+                Position.FromString(endPosition)));
             gameRepository.Replace(resultGameLayout);
             return true;
         }
