@@ -1,5 +1,4 @@
 ﻿using Checkmate.Detector.Domain.Positions;
-using System;
 
 namespace Checkmate.Detector.Domain.Pieces
 {
@@ -14,5 +13,14 @@ namespace Checkmate.Detector.Domain.Pieces
 
         public override string ToString() =>
             Kind + Position.ToString();
+
+        public bool CanKill(Piece other)
+        {
+            if (IsPawn())
+            {
+                return Position.GetDistance(other.Position) == 1;
+            }
+            return false;
+        }
     }
 }

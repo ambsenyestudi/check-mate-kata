@@ -1,7 +1,5 @@
 ﻿using Checkmate.Detector.Domain.Game;
 using Checkmate.Detector.Domain.Pieces;
-using Checkmate.Detector.Domain.Positions;
-using System;
 using System.Linq;
 
 namespace Checkmate.Detector.Domain
@@ -19,15 +17,10 @@ namespace Checkmate.Detector.Domain
         {
             var gameLayout = gameRepository.GetBy(gameId);
             var pieces = gameLayout.GetPieces();
+            
             var attackPiece = Piece.FromString(pieces.First());
-            if(attackPiece.IsPawn())
-            {
-                var king = Piece.FromString(pieces.Last());
-                return attackPiece.Position.GetDistance(king.Position) == 1;
-            }
-            return false;
+            var king = Piece.FromString(pieces.Last());
+            return attackPiece.CanKill(king);            
         }
-
-
     }
 }
