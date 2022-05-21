@@ -18,7 +18,10 @@ namespace Checkmate.Detector.Domain.Pieces
         {
             if (IsPawn())
             {
-                return Position.GetDistance(other.Position) == 1;
+
+                return other.Position.IsInFrontOf(Position) && 
+                    other.Position.IsInDiagonalTo(Position) &&
+                    Position.GetDistance(other.Position) == 1;
             }
             return false;
         }

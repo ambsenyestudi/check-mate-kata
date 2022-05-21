@@ -12,13 +12,18 @@ namespace Checkmate.Detector.Domain.Positions
             }
             return new Position(input.Substring(0, 1), row);
         }
-
+        public bool IsInFrontOf(Position other) =>
+            Column[0] > other.Column[0];
         public int GetDistance(Position other)
         {
             return (int)Math.Sqrt(
                 Math.Pow(Column[0] - other.Column[0], 2) +
                 Math.Pow(Row - other.Row, 2));
         }
+
+        internal bool IsInDiagonalTo(Position other) =>
+            Math.Abs(Column[0] - other.Column[0]).Equals(1) &&
+            Math.Abs(Row - other.Row).Equals(1);
 
         public override string ToString() =>
             Column + Row;
