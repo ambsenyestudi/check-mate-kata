@@ -12,9 +12,9 @@ namespace Checkmate.Detector.Domain
             this.gameRepository = gameRepository;
         }
 
-        public bool IsCheck(GameId gameService)
+        public bool IsCheck(GameId gameId)
         {
-            throw new NotImplementedException();
+            return gameRepository.GetBy(gameId) == GameLayout.Empty;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Checkmate.Detector.Acceptance.Test
 
             var gameId = gameService.Load("Pd6", "Ke8");
             gameService.TryMove("d6", "d7", gameId);
-            Assert.True(checkService.IsCheck());
+            Assert.True(checkService.IsCheck(gameId));
         }
     }
 }
