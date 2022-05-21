@@ -1,4 +1,5 @@
 ﻿using Checkmate.Detector.Domain.Game;
+using Checkmate.Detector.Domain.Positions;
 using System;
 using System.Linq;
 
@@ -28,17 +29,11 @@ namespace Checkmate.Detector.Domain
         private int GetDistance(string[] pieces)
         {
             var attackPiece = pieces.First();
-            var kingPiece = pieces.Last();
-            return (int)Math.Sqrt(
-                Math.Pow(GetColumnDistance(attackPiece, kingPiece), 2) +
-                Math.Pow(GetRowDistance(attackPiece, kingPiece), 2));
+            var king = pieces.Last();
+            var startPosition = Position.FromString(attackPiece.Substring(1, 2));
+            var endPosition = Position.FromString(king.Substring(1, 2));
+            return endPosition.GetDistance(startPosition);
         }
-
-        private double GetRowDistance(string attackPiece, string kingPiece) =>
-            attackPiece[2] - kingPiece[2];
-
-        private int GetColumnDistance(string attackPiece, string kingPiece) =>
-            attackPiece[1] - kingPiece[1];
 
         private bool IsPawn(string attackPiece) =>
             attackPiece.StartsWith("P");
