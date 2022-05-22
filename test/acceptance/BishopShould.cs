@@ -18,6 +18,8 @@ namespace Checkmate.Detector.Acceptance.Test
         [Theory]
         [InlineData("Bc7", "Kd8")]
         [InlineData("Be7", "Kd8")]
+        [InlineData("Ba5", "Kd8")]
+        [InlineData("Bh4", "Kd8")]
         public void Detect_Checkmate_When_King_At_Killing_Range(string pawn, string king)
         {
 

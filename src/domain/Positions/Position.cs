@@ -22,8 +22,8 @@ namespace Checkmate.Detector.Domain.Positions
         }
 
         internal bool IsInDiagonalTo(Position other) =>
-            Math.Abs(Column[0] - other.Column[0]).Equals(1) &&
-            Math.Abs(Row - other.Row).Equals(1);
+            Math.Abs(Column[0] - other.Column[0])
+            .Equals(Math.Abs(Row - other.Row));
 
         public override string ToString() =>
             Column + Row;
