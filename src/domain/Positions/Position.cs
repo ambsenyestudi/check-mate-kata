@@ -34,11 +34,12 @@ namespace Checkmate.Detector.Domain.Positions
             (Column[0] - other.Column[0] == 0 ||
             Row - other.Row == 0);
 
-        internal bool IsOthogonalCombined(Position other)
+        public bool IsOthogonalCombined(Position other)
         {
             var rowDistance = GetDistance(Row, other.Row);
             int colDistance = GetDistance(Column, other.Column);
-            return rowDistance == 1 && colDistance == 2;
+            return (rowDistance == 1 && colDistance == 2) ||
+                (rowDistance == 2 && colDistance == 1);
         }
 
         private int GetDistance(string start, string end) =>
