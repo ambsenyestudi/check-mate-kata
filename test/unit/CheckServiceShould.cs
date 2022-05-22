@@ -38,5 +38,14 @@ namespace Checkmate.Detector.Unit.Test
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             Assert.True(checkService.IsCheck(GAME_ID));
         }
+
+        [Theory]
+        [InlineData("Kb7", "Kc8")]
+        public void Tell_When_Knight_Checks_King(string knight, string king)
+        {
+            GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { knight, king });
+            gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
+            Assert.True(checkService.IsCheck(GAME_ID));
+        }
     }
 }
