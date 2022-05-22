@@ -19,14 +19,14 @@ namespace Checkmate.Detector.Domain.Pieces
 
         public bool CanKill(Piece other)
         {
-            if (Kind == PieceKind.Pawn)
+            if (Kind is PieceKind.Pawn)
             {
 
                 return other.Position.IsInFrontOf(Position) && 
                     other.Position.IsInDiagonalTo(Position) &&
                     Position.GetDistance(other.Position) == 1;
             }
-            if (Kind == PieceKind.Bishop)
+            if (Kind is PieceKind.Bishop)
             {
                 return other.Position.IsInDiagonalTo(Position);
             }
