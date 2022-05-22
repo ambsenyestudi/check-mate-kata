@@ -87,6 +87,7 @@ namespace Checkmate.Detector.Unit.Test
         public void Detect_Checkmate_When_At_Killing_Range(string kingRook, string queenRook, string king)
         {
             GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { kingRook, queenRook, king });
+            gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             boardService.Setup(x => x.GetPossibleMoves(Piece.FromString(king)))
                 .Returns(
                 new List<Position> 

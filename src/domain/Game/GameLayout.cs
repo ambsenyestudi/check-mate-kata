@@ -27,6 +27,9 @@ namespace Checkmate.Detector.Domain.Game
         public bool IsPieceAt(Position start) =>
             pieces.ContainsPosition(start);
 
+        public Piece GetKing() =>
+            pieces.GetPiece(PieceKind.King);
+
         public GameLayout Move(Move move) =>
             new GameLayout(GameId, pieces.MovePieceAt(move));
 

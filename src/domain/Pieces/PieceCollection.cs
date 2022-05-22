@@ -32,6 +32,9 @@ namespace Checkmate.Detector.Domain.Pieces
             return Pieces.SequenceEqual(other.Pieces);
         }
 
+        public Piece GetPiece(PieceKind kind) =>
+            Pieces.FirstOrDefault(x => x.Kind.Equals(kind));
+
         public bool ContainsPosition(Position position) =>
             Pieces.Any(x => x.Position.Equals(position));
 
