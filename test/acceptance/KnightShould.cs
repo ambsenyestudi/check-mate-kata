@@ -14,6 +14,17 @@ namespace Checkmate.Detector.Acceptance.Test
             gameService = new GameService(gameRepository);
             checkService = new CheckService(gameRepository);
         }
+        [Theory]
+        [InlineData("Nc5", "Kd8", "d7")]
+        [InlineData("Ng5", "Kd8", "e7")]
+        public void Ignore_When_King_Not_At_Range(
+            string knight, string king, string endPos)
+        {
+            var gameId = gameService.Load(knight, king);
+            var startPos = knight.Substring(1, 2);
+            gameService.TryMove(startPos, endPos, gameId);
+            Assert.False(checkService.IsCheck(gameId));
+        }
 
         [Theory]
         [InlineData("Nc5", "Kd8", "b7")]
