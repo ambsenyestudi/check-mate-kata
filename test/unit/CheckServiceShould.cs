@@ -55,5 +55,14 @@ namespace Checkmate.Detector.Unit.Test
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             Assert.True(checkService.IsCheck(GAME_ID));
         }
+
+        [Theory]
+        [InlineData("Bb6", "Nc7", "Kd8")]
+        public void Ignore_Check_When_Bishop_To_King_Is_Blocked(string piece, string blockingPiece, string king)
+        {
+            GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { piece, blockingPiece, king });
+            gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
+            Assert.False(checkService.IsCheck(GAME_ID));
+        }
     }
 }
