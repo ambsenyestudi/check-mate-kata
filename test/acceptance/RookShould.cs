@@ -32,5 +32,16 @@ namespace Checkmate.Detector.Acceptance.Test
         }
 
 
+        [Theory]
+        [InlineData("Rc7", "Kd8")]
+        [InlineData("Re7", "Kd8")]
+        [InlineData("Ra5", "Kd8")]
+        [InlineData("Rh4", "Kd8")]
+        public void Ignore_When_King_Not_At_Range(string pawn, string king)
+        {
+
+            var gameId = gameService.Load(pawn, king);
+            Assert.False(checkService.IsCheck(gameId));
+        }
     }
 }
