@@ -16,7 +16,6 @@ namespace Checkmate.Detector.Domain.Pieces
         {
         }
 
-
         public PieceCollection MovePieceAt(Move move)
         {
             var foundPiece = Pieces.FirstOrDefault(x=>x.Position.Equals(move.Start));

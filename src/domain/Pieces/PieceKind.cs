@@ -21,5 +21,10 @@ namespace Checkmate.Detector.Domain.Pieces
             }
             return result;
         }
+        public static string GetInitial(this PieceKind kind)
+        {
+            return kind.ToString().Substring(0, 1);
+        }
     }
+    
 }
