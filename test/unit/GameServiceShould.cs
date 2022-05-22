@@ -51,5 +51,7 @@ namespace Checkmate.Detector.Unit.Test
             Assert.True(gameService.TryMove("d6", "d7", gameId));
             gameRepository.Verify(x => x.Replace(expected));
         }
+
+
     }
 }

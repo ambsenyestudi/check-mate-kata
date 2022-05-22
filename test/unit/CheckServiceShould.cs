@@ -1,5 +1,7 @@
 ﻿using Checkmate.Detector.Domain;
+using Checkmate.Detector.Domain.Boards;
 using Checkmate.Detector.Domain.Game;
+using Checkmate.Detector.Domain.Pieces;
 using Checkmate.Detector.Domain.Positions;
 using Moq;
 using System;
@@ -14,6 +16,7 @@ namespace Checkmate.Detector.Unit.Test
         private readonly CheckService checkService;
         private readonly Mock<IGameRepository> gameRepository;
         private readonly Mock<IPathCalculationService> pathCalculationService;
+        private readonly Mock<IBoardService> boardService;
         private GameLayout GAME_LAYOUT;
         private readonly GameId GAME_ID = new GameId(new Guid("03c9aedb-d728-4f90-8f8f-80c1348b144a"));
         private readonly string[] NO_KILLING_PIECES = new string[] { "Pd6", "Ke8" };
@@ -25,7 +28,8 @@ namespace Checkmate.Detector.Unit.Test
             gameRepository = new Mock<IGameRepository>();
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             pathCalculationService = new Mock<IPathCalculationService>();
-            checkService = new CheckService(pathCalculationService.Object, gameRepository.Object);
+            boardService = new Mock<IBoardService>();
+            checkService = new CheckService(boardService.Object, pathCalculationService.Object, gameRepository.Object);
         }
 
         [Fact]
@@ -78,5 +82,19 @@ namespace Checkmate.Detector.Unit.Test
                 Position.FromString(blockingPiece.Substring(1,2))
             };
 
+        [Theory]
+        [InlineData("Ra2", "Rb1", "Ka8")]
+        public void Detect_Checkmate_When_At_Killing_Range(string kingRook, string queenRook, string king)
+        {
+            GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { kingRook, queenRook, king });
+            boardService.Setup(x => x.GetPossibleMoves(Piece.FromString(king)))
+                .Returns(
+                new List<Position> 
+                { 
+                    Position.FromString("B8"), 
+                    Position.FromString("B7"), 
+                    Position.FromString("A7") });
+            Assert.True(checkService.IsCheckmate(GAME_ID));
+        }
     }
 }

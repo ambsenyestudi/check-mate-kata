@@ -1,4 +1,5 @@
 ﻿using Checkmate.Detector.Domain;
+using Checkmate.Detector.Domain.Boards;
 using Checkmate.Detector.Domain.Game;
 using Xunit;
 
@@ -8,6 +9,7 @@ namespace Checkmate.Detector.Acceptance.Test
     {
         private readonly GameService gameService;
         private readonly IPathCalculationService pathCalculationService;
+        private readonly IBoardService boardService;
         private readonly CheckService checkService;
 
         public RookShould()
@@ -15,7 +17,8 @@ namespace Checkmate.Detector.Acceptance.Test
             var gameRepository = new GameRepository();
             gameService = new GameService(gameRepository); 
             pathCalculationService = new PathCalculationService();
-            checkService = new CheckService(pathCalculationService, gameRepository);
+            boardService = new BoardService();
+            checkService = new CheckService(boardService, pathCalculationService, gameRepository);
         }
 
         [Theory]

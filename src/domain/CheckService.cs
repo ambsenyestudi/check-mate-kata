@@ -11,7 +11,7 @@ namespace Checkmate.Detector.Domain
         private readonly IPathCalculationService pathCalculationService;
         private readonly IGameRepository gameRepository;
 
-        public CheckService(IPathCalculationService pathCalculationService, IGameRepository gameRepository)
+        public CheckService(Boards.IBoardService @object, IPathCalculationService pathCalculationService, IGameRepository gameRepository)
         {
             this.pathCalculationService = pathCalculationService;
             this.gameRepository = gameRepository;
@@ -21,12 +21,13 @@ namespace Checkmate.Detector.Domain
         {
             var gameLayout = gameRepository.GetBy(gameId);
             var pieces = gameLayout.GetPieces();
-            
-            var attackPiece = Piece.FromString(pieces.First());
             var king = Piece.FromString(pieces.Last());
-            
-            return !IsPathBlocked(attackPiece, king, gameLayout) && attackPiece.CanKill(king);            
+            return pieces
+                .Where(x => !x.Equals(king))
+                .Select(x => Piece.FromString(x))
+                .Any(at => !IsPathBlocked(at, king, gameLayout) && at.CanKill(king));            
         }
+
         public bool IsPathBlocked(Piece attackPiece, Piece king, GameLayout gameLayout)
         {
             if (attackPiece.Kind is PieceKind.Pawn ||
@@ -60,5 +61,6 @@ namespace Checkmate.Detector.Domain
             var isMovedCheck = !IsPathBlocked(otherPiece, movedKing, movedGameLayout) && otherPiece.CanKill(movedKing);
             return isCheck && isMovedCheck;
         }
+
     }
 }
