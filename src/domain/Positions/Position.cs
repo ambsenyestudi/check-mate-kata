@@ -23,7 +23,8 @@ namespace Checkmate.Detector.Domain.Positions
 
         public bool IsInDiagonalTo(Position other) =>
             Math.Abs(Column[0] - other.Column[0])
-            .Equals(Math.Abs(Row - other.Row));
+            .Equals(GetDistance(Row, other.Row));
+
 
         public override string ToString() =>
             Column + Row;
@@ -32,5 +33,19 @@ namespace Checkmate.Detector.Domain.Positions
             !Equals(other) &&
             (Column[0] - other.Column[0] == 0 ||
             Row - other.Row == 0);
+
+        internal bool IsOthogonalCombined(Position other)
+        {
+            var rowDistance = GetDistance(Row, other.Row);
+            int colDistance = GetDistance(Column, other.Column);
+            return rowDistance == 1 && colDistance == 2;
+        }
+
+        private int GetDistance(string start, string end) =>
+            GetDistance(start[0], end[0]);
+
+        private int GetDistance(int start, int end) =>
+            Math.Abs(start - end);
+
     }
 }

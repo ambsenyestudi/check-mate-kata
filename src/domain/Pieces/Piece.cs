@@ -34,6 +34,10 @@ namespace Checkmate.Detector.Domain.Pieces
             {
                 return other.Position.IsOrthogonalTo(Position);
             }
+            if (Kind is PieceKind.Knight)
+            {
+                return other.Position.IsOthogonalCombined(Position);
+            }
             return false;
         }
 
