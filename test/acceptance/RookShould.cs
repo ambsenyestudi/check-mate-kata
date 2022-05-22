@@ -72,5 +72,15 @@ namespace Checkmate.Detector.Acceptance.Test
             gameService.TryMove(startPos, endPos, gameId);
             Assert.False(checkService.IsCheck(gameId));
         }
+
+        [Theory]
+        [InlineData("Rh2", "Rb1", "Ka8", "a2")]
+        public void Detect_Checkmate_When_Moved_At_Killing_Range(string kingRook, string queenRook, string king, string endPos)
+        {
+            var gameId = gameService.Load(kingRook, queenRook, king);
+            var startPos = kingRook.Substring(1, 2);
+            gameService.TryMove(startPos, endPos, gameId);
+            Assert.True(checkService.IsCheckmate(gameId));
+        }
     }
 }
