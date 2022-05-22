@@ -33,6 +33,7 @@ namespace Checkmate.Detector.Acceptance.Test
 
         [Theory]
         [InlineData("Bg2", "Nc7", "Kd8", "b6")]
+        [InlineData("Ba1", "Ne7", "Kd8", "f6")]
         public void Ignore_Check_When_Bishop_To_King_Is_Blocked(string bishop, string knight, string king, string endPos)
         {
 
