@@ -15,21 +15,19 @@ namespace Checkmate.Detector.Acceptance.Test
             checkService = new CheckService(gameRepository);
         }
 
-        //todo refactor knight is N
-
         [Theory]
-        [InlineData("Kc5", "Kd8", "b7")]
-        [InlineData("Kg5", "Kd8", "f7")]
-        [InlineData("Ka6", "Kd7", "b8")]
-        [InlineData("Kg7", "Kd7", "f8")]
-        [InlineData("Kb8", "Kd8", "c6")]
-        [InlineData("Kf7", "Kd8", "e6")]
-        [InlineData("Ka7", "Kd6", "c8")]
-        [InlineData("Kf6", "Kd6", "e8")]
-        public void Detect_Check_When_Moved_At_Killing_Range(string rook, string king, string endPos)
+        [InlineData("Nc5", "Kd8", "b7")]
+        [InlineData("Ng5", "Kd8", "f7")]
+        [InlineData("Na6", "Kd7", "b8")]
+        [InlineData("Ng7", "Kd7", "f8")]
+        [InlineData("Nb8", "Kd8", "c6")]
+        [InlineData("Nf7", "Kd8", "e6")]
+        [InlineData("Na7", "Kd6", "c8")]
+        [InlineData("Nf6", "Kd6", "e8")]
+        public void Detect_Check_When_Moved_At_Killing_Range(string knight, string king, string endPos)
         {
-            var gameId = gameService.Load(rook, king);
-            var startPos = rook.Substring(1, 2);
+            var gameId = gameService.Load(knight, king);
+            var startPos = knight.Substring(1, 2);
             gameService.TryMove(startPos, endPos, gameId);
             Assert.True(checkService.IsCheck(gameId));
         }
