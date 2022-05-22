@@ -1,4 +1,3 @@
-using Checkmate.Detector.Domain;
 using Checkmate.Detector.Domain.Game;
 using Moq;
 using System;

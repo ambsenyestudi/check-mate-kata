@@ -1,9 +1,6 @@
-﻿using Checkmate.Detector.Domain.Game;
-using Checkmate.Detector.Domain.Positions;
-using System;
-using System.Linq;
+﻿using Checkmate.Detector.Domain.Positions;
 
-namespace Checkmate.Detector.Domain
+namespace Checkmate.Detector.Domain.Game
 {
     public class GameService
     {
@@ -17,7 +14,7 @@ namespace Checkmate.Detector.Domain
         public GameId Load(params string[] pieces)
         {
             var gameId = gameRepository.Add(new GameLayout(GameId.Empty, pieces));
-            return gameRepository.GetBy(gameId) == GameLayout.Empty 
+            return gameRepository.GetBy(gameId) == GameLayout.Empty
                 ? GameId.Empty
                 : gameId;
         }
@@ -26,7 +23,7 @@ namespace Checkmate.Detector.Domain
         {
             var gameLayout = gameRepository.GetBy(gameId);
             var start = Position.FromString(startPosition);
-            if(!gameLayout.IsPieceAt(start))
+            if (!gameLayout.IsPieceAt(start))
             {
                 return false;
             }
