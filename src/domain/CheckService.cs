@@ -28,7 +28,8 @@ namespace Checkmate.Detector.Domain
         }
         public bool IsPathBlocked(Piece attackPiece, Piece king, GameLayout gameLayout)
         {
-            if (attackPiece.Kind is not PieceKind.Bishop)
+            if (attackPiece.Kind is not PieceKind.Bishop && 
+                attackPiece.Kind is not PieceKind.Rook)
             {
                 return false;
             }

@@ -13,21 +13,17 @@ namespace Checkmate.Detector.Domain
             {
                 return Enumerable.Empty<Position>();
             }
-            // math doesn't work
-            if (move.Start.IsInDiagonalTo(move.End))
+
+            var inBetweenDistnace = distance - 1;
+            var (column, row) = FigureVector(move, inBetweenDistnace);
+            var result = new List<Position>();
+            for (int i = 0; i < inBetweenDistnace; i++)
             {
-                var inBetweenDistnace = distance - 1;
-                var (column, row) = FigureVector(move, distance - 1);
-                var result = new List<Position>();
-                for (int i = 0; i < inBetweenDistnace ; i++)
-                {
-                    var newColumn = OffsetColumn(move, column * (i + 1));
-                    var newRow = move.Start.Row + row * (i + 1);
-                    result.Add(new Position(newColumn, newRow));
-                }
-                return result;
+                var newColumn = OffsetColumn(move, column * (i + 1));
+                var newRow = move.Start.Row + row * (i + 1);
+                result.Add(new Position(newColumn, newRow));
             }
-            return Enumerable.Empty<Position>();
+            return result;
         }
 
         private static Columns OffsetColumn(Move move, int offset)

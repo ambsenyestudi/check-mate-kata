@@ -41,7 +41,8 @@ namespace Checkmate.Detector.Domain.Pieces
             {
                 return null;
             }
-            return Pieces.First(x => x.Position.Equals(position));
+            var piece = Pieces.First(x => x.Position.Equals(position));
+            return piece;
         }
 
         private Piece[] UpdatePieces(Move move, Piece foundPiece)

@@ -62,7 +62,8 @@ namespace Checkmate.Detector.Acceptance.Test
 
         [Theory]
         [InlineData("Ra1", "Nd7", "Kd8", "d1")]
-        [InlineData("Ra1", "Nc7", "Kd8", "a8")]
+        [InlineData("Ra1", "Nc8", "Kd8", "a8")]
+        [InlineData("Rh1", "Ne8", "Kd8", "h8")]
         public void Ignore_Check_When_Rook_To_King_Is_Blocked(string rook, string knight, string king, string endPos)
         {
 
