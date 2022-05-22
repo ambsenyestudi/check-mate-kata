@@ -46,5 +46,20 @@ namespace Checkmate.Detector.Acceptance.Test
             gameService.TryMove(startPos, endPos, gameId);
             Assert.True(checkService.IsCheck(gameId));
         }
+
+        [Theory]
+        [InlineData("Qa1", "Nd7", "Kd8", "d1")]
+        [InlineData("Qa1", "Nc8", "Kd8", "a8")]
+        [InlineData("Qh1", "Ne8", "Kd8", "h8")]
+        [InlineData("Qg2", "Nc7", "Kd8", "b6")]
+        [InlineData("Qa1", "Ne7", "Kd8", "f6")]
+        public void Ignore_Check_When_Queen_To_King_Is_Blocked(string rook, string knight, string king, string endPos)
+        {
+
+            var gameId = gameService.Load(rook, knight, king);
+            var startPos = rook.Substring(1, 2);
+            gameService.TryMove(startPos, endPos, gameId);
+            Assert.False(checkService.IsCheck(gameId));
+        }
     }
 }
