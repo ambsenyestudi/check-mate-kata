@@ -8,11 +8,14 @@ namespace Checkmate.Detector.Acceptance.Test
     {
         private readonly GameService gameService;
         private readonly CheckService checkService;
+        private readonly IPathCalculationService pathCalculationService;
+
         public KingShould()
         {
             var gameRepository = new GameRepository();
             gameService = new GameService(gameRepository);
-            checkService = new CheckService(gameRepository);
+            pathCalculationService = new PathCalculationService();
+            checkService = new CheckService(pathCalculationService, gameRepository);
         }
 
         [Theory]

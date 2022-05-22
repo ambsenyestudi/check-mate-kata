@@ -10,6 +10,7 @@ namespace Checkmate.Detector.Unit.Test
     {
         private readonly CheckService checkService;
         private readonly Mock<IGameRepository> gameRepository;
+        private readonly Mock<IPathCalculationService> pathCalculationService;
         private GameLayout GAME_LAYOUT;
         private readonly GameId GAME_ID = new GameId(new Guid("03c9aedb-d728-4f90-8f8f-80c1348b144a"));
         private readonly string[] NO_KILLING_PIECES = new string[] { "Pd6", "Ke8" };
@@ -20,8 +21,8 @@ namespace Checkmate.Detector.Unit.Test
 
             gameRepository = new Mock<IGameRepository>();
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
-
-            checkService = new CheckService(gameRepository.Object);
+            pathCalculationService = new Mock<IPathCalculationService>();
+            checkService = new CheckService(pathCalculationService.Object, gameRepository.Object);
         }
 
         [Fact]

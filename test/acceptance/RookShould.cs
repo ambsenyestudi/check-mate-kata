@@ -7,13 +7,15 @@ namespace Checkmate.Detector.Acceptance.Test
     public class RookShould
     {
         private readonly GameService gameService;
+        private readonly IPathCalculationService pathCalculationService;
         private readonly CheckService checkService;
 
         public RookShould()
         {
             var gameRepository = new GameRepository();
-            gameService = new GameService(gameRepository);
-            checkService = new CheckService(gameRepository);
+            gameService = new GameService(gameRepository); 
+            pathCalculationService = new PathCalculationService();
+            checkService = new CheckService(pathCalculationService, gameRepository);
         }
 
         [Theory]

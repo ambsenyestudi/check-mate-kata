@@ -7,12 +7,14 @@ namespace Checkmate.Detector.Acceptance.Test
     public class BishopShould
     {
         private readonly GameService gameService;
+        private readonly IPathCalculationService pathCalculationService;
         private readonly CheckService checkService;
         public BishopShould()
         {
             var gameRepository = new GameRepository();
-            gameService = new GameService(gameRepository);
-            checkService = new CheckService(gameRepository);
+            gameService = new GameService(gameRepository); 
+            pathCalculationService = new PathCalculationService();
+            checkService = new CheckService(pathCalculationService, gameRepository);
         }
 
         [Theory]

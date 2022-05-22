@@ -7,12 +7,14 @@ namespace Checkmate.Detector.Acceptance.Test
     public class KnightShould
     {
         private readonly GameService gameService;
+        private readonly IPathCalculationService pathCalculationService;
         private readonly CheckService checkService;
         public KnightShould()
         {
             var gameRepository = new GameRepository();
-            gameService = new GameService(gameRepository);
-            checkService = new CheckService(gameRepository);
+            gameService = new GameService(gameRepository); 
+            pathCalculationService = new PathCalculationService();
+            checkService = new CheckService(pathCalculationService, gameRepository);
         }
         [Theory]
         [InlineData("Nc5", "Kd8", "d7")]

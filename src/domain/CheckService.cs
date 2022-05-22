@@ -6,10 +6,12 @@ namespace Checkmate.Detector.Domain
 {
     public class CheckService
     {
-        private IGameRepository gameRepository;
+        private readonly IPathCalculationService pathCalculationService;
+        private readonly IGameRepository gameRepository;
 
-        public CheckService(IGameRepository gameRepository)
+        public CheckService(IPathCalculationService pathCalculationService, IGameRepository gameRepository)
         {
+            this.pathCalculationService = pathCalculationService;
             this.gameRepository = gameRepository;
         }
 
