@@ -24,10 +24,10 @@ namespace Checkmate.Detector.Acceptance.Test
         [InlineData("Rd1", "Kd8")]
         [InlineData("Rd8", "Kd7")]
         [InlineData("Rd8", "Kd1")]
-        public void Detect_Checkmate_When_King_At_Killing_Range(string pawn, string king)
+        public void Detect_Check_When_King_At_Killing_Range(string rook, string king)
         {
 
-            var gameId = gameService.Load(pawn, king);
+            var gameId = gameService.Load(rook, king);
             Assert.True(checkService.IsCheck(gameId));
         }
 
@@ -37,11 +37,20 @@ namespace Checkmate.Detector.Acceptance.Test
         [InlineData("Re7", "Kd8")]
         [InlineData("Ra5", "Kd8")]
         [InlineData("Rh4", "Kd8")]
-        public void Ignore_When_King_Not_At_Range(string pawn, string king)
+        public void Ignore_When_King_Not_At_Range(string rook, string king)
         {
 
-            var gameId = gameService.Load(pawn, king);
+            var gameId = gameService.Load(rook, king);
             Assert.False(checkService.IsCheck(gameId));
+        }
+        [Theory]
+        [InlineData("Ra1", "Kd8", "d1")]
+        public void Detect_Check_When_Moved_At_Killing_Range(string rook, string king, string endPos)
+        {
+            var gameId = gameService.Load(rook, king);
+            var startPos = rook.Substring(1, 2);
+            gameService.TryMove(startPos, endPos, gameId);
+            Assert.True(checkService.IsCheck(gameId));
         }
     }
 }
