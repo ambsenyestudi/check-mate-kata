@@ -8,9 +8,6 @@ namespace Checkmate.Detector.Domain.Pieces
             new Piece(piece.Substring(0, 1), 
                 Position.FromString(piece.Substring(1, 2)));
 
-        internal bool IsPawn() =>
-            Kind.Equals("P");
-
         internal bool IsBishop() =>
             Kind.Equals("B");
 
@@ -19,7 +16,7 @@ namespace Checkmate.Detector.Domain.Pieces
 
         public bool CanKill(Piece other)
         {
-            if (IsPawn())
+            if (Kind.PieceKindFromInitial() == PieceKind.Pawn)
             {
 
                 return other.Position.IsInFrontOf(Position) && 

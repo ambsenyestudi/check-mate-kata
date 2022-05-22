@@ -1,0 +1,25 @@
+﻿using System;
+
+namespace Checkmate.Detector.Domain.Pieces
+{
+    public enum  PieceKind
+    {
+        None, Pawn, Bishop
+    }
+
+    public static class PieceKindExtensions
+    {
+        public static PieceKind PieceKindFromInitial(this string letter)
+        {
+            var result = PieceKind.None;
+            foreach (var item in Enum.GetValues(typeof(PieceKind)))
+            {
+                if(item.ToString().StartsWith(letter))
+                {
+                    result = (PieceKind)item;
+                }
+            }
+            return result;
+        }
+    }
+}
