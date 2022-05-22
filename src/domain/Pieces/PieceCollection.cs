@@ -35,6 +35,15 @@ namespace Checkmate.Detector.Domain.Pieces
         public bool ContainsPosition(Position position) =>
             Pieces.Any(x => x.Position.Equals(position));
 
+        public Piece GetPieceAt(Position position)
+        {
+            if (!ContainsPosition(position))
+            {
+                return null;
+            }
+            return Pieces.First(x => x.Position.Equals(position));
+        }
+
         private Piece[] UpdatePieces(Move move, Piece foundPiece)
         {
             var movePieces = new Piece[Pieces.Length];

@@ -6,7 +6,7 @@ namespace Checkmate.Detector.Domain
 {
     public class PathCalculationService : IPathCalculationService
     {
-        public IEnumerable<Position> GetPath(Position start, Position end)
+        public IEnumerable<Position> GetPath(Move move)
         {
             throw new NotImplementedException();
         }

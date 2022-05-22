@@ -5,6 +5,6 @@ namespace Checkmate.Detector.Domain
 {
     public interface IPathCalculationService
     {
-        IEnumerable<Position> GetPath(Position start, Position end);
+        IEnumerable<Position> GetPath(Move move);
     }
 }

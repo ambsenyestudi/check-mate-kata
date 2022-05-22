@@ -1,5 +1,6 @@
 ﻿using Checkmate.Detector.Domain.Game;
 using Checkmate.Detector.Domain.Pieces;
+using Checkmate.Detector.Domain.Positions;
 using System.Linq;
 
 namespace Checkmate.Detector.Domain
@@ -22,15 +23,22 @@ namespace Checkmate.Detector.Domain
             
             var attackPiece = Piece.FromString(pieces.First());
             var king = Piece.FromString(pieces.Last());
-            if(attackPiece.Kind is PieceKind.Bishop)
+            
+            return !IsPathBlocked(attackPiece, king, gameLayout) && attackPiece.CanKill(king);            
+        }
+        public bool IsPathBlocked(Piece attackPiece, Piece king, GameLayout gameLayout)
+        {
+            if (attackPiece.Kind is not PieceKind.Bishop)
             {
-                var path = pathCalculationService.GetPath(attackPiece.Position, king.Position);
-                if(path.Any())
-                {
-                    //todo
-                }
+                return false;
             }
-            return attackPiece.CanKill(king);            
+            var path = pathCalculationService.GetPath(
+                new Move(attackPiece.Position, king.Position)); ;
+            if (!path.Any())
+            {
+                return false;
+            }
+            return path.Any(x => gameLayout.GetPieceAt(x) != null);
         }
     }
 }

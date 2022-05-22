@@ -1,7 +1,10 @@
 ﻿using Checkmate.Detector.Domain;
 using Checkmate.Detector.Domain.Game;
+using Checkmate.Detector.Domain.Positions;
 using Moq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Checkmate.Detector.Unit.Test
@@ -58,11 +61,22 @@ namespace Checkmate.Detector.Unit.Test
 
         [Theory]
         [InlineData("Bb6", "Nc7", "Kd8")]
+        [InlineData("Bf6", "Ne7", "Kd8")]
         public void Ignore_Check_When_Bishop_To_King_Is_Blocked(string piece, string blockingPiece, string king)
         {
+            
             GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { piece, blockingPiece, king });
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
+            pathCalculationService.Setup(x => x.GetPath(It.IsAny<Move>()))
+                .Returns(PositionFromPiece(blockingPiece));
             Assert.False(checkService.IsCheck(GAME_ID));
         }
+
+        private IEnumerable<Position> PositionFromPiece(string blockingPiece) =>
+            new List<Position>
+            {
+                Position.FromString(blockingPiece.Substring(1,2))
+            };
+
     }
 }
