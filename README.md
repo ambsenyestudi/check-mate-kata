@@ -11,7 +11,8 @@ Our small startup Play it smart has thought of a nice application. An microservi
 # User stories
 
 * Given that a valid movement is submitted if the start square contains a piece then a movement can be made
-* Given that a pawn moves when a king at different is at killing range then check is detected
-* Given that a bishop moves when a king at different is at killing range check is detected
+* Given that a pawn moves when enemy king is at killing range then check is detected
+* Given that a bishop moves when enmy king is at killing range check is detected
+* Given that a rook moves when enmy king is at killing range check is detected
 
 For now let's go with colum row of origin and colum row end as a valid move.
