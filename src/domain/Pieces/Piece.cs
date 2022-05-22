@@ -8,12 +8,6 @@ namespace Checkmate.Detector.Domain.Pieces
             new Piece(piece.Substring(0, 1), 
                 Position.FromString(piece.Substring(1, 2)));
 
-        internal bool IsBishop() =>
-            Kind.Equals("B");
-
-        public override string ToString() =>
-            Kind + Position.ToString();
-
         public bool CanKill(Piece other)
         {
             if (Kind.PieceKindFromInitial() == PieceKind.Pawn)
@@ -23,11 +17,15 @@ namespace Checkmate.Detector.Domain.Pieces
                     other.Position.IsInDiagonalTo(Position) &&
                     Position.GetDistance(other.Position) == 1;
             }
-            if (IsBishop())
+            if (Kind.PieceKindFromInitial() == PieceKind.Bishop)
             {
                 return other.Position.IsInDiagonalTo(Position);
             }
             return false;
         }
+
+        public override string ToString() =>
+            Kind + Position.ToString();
+
     }
 }
