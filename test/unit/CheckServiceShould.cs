@@ -42,6 +42,8 @@ namespace Checkmate.Detector.Unit.Test
         [Theory]
         [InlineData("Kb7", "Kd8")]
         [InlineData("Kf7", "Kd8")]
+        [InlineData("Kc6", "Kd8")]
+        [InlineData("Ke6", "Kd8")]
         public void Tell_When_Knight_Checks_King(string knight, string king)
         {
             GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { knight, king });
