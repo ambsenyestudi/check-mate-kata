@@ -22,6 +22,14 @@ namespace Checkmate.Detector.Domain
             
             var attackPiece = Piece.FromString(pieces.First());
             var king = Piece.FromString(pieces.Last());
+            if(attackPiece.Kind is PieceKind.Bishop)
+            {
+                var path = pathCalculationService.GetPath(attackPiece.Position, king.Position);
+                if(path.Any())
+                {
+                    //todo
+                }
+            }
             return attackPiece.CanKill(king);            
         }
     }
