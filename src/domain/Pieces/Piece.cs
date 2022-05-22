@@ -30,6 +30,10 @@ namespace Checkmate.Detector.Domain.Pieces
             {
                 return other.Position.IsInDiagonalTo(Position);
             }
+            if (Kind is PieceKind.Rook)
+            {
+                return other.Position.IsOrthogonalTo(Position);
+            }
             return false;
         }
 

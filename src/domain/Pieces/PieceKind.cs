@@ -4,7 +4,7 @@ namespace Checkmate.Detector.Domain.Pieces
 {
     public enum  PieceKind
     {
-        None, Pawn, Bishop
+        None, Pawn, Bishop, Rook
     }
 
     public static class PieceKindExtensions

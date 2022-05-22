@@ -21,11 +21,16 @@ namespace Checkmate.Detector.Domain.Positions
                 Math.Pow(Row - other.Row, 2));
         }
 
-        internal bool IsInDiagonalTo(Position other) =>
+        public bool IsInDiagonalTo(Position other) =>
             Math.Abs(Column[0] - other.Column[0])
             .Equals(Math.Abs(Row - other.Row));
 
         public override string ToString() =>
             Column + Row;
+
+        public bool IsOrthogonalTo(Position other) =>
+            !Equals(other) &&
+            (Column[0] - other.Column[0] == 0 ||
+            Row - other.Row == 0);
     }
 }
