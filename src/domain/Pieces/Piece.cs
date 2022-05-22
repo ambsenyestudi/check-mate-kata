@@ -38,6 +38,11 @@ namespace Checkmate.Detector.Domain.Pieces
             {
                 return other.Position.IsOthogonalCombined(Position);
             }
+            if(Kind is PieceKind.Queen)
+            {
+                return other.Position.IsOrthogonalTo(Position) ||
+                    other.Position.IsInDiagonalTo(Position);
+            }
             return false;
         }
 
