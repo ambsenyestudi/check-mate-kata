@@ -28,37 +28,11 @@ namespace Checkmate.Detector.Domain.Boards
         {
             if (kind is PieceKind.King)
             {
-                return GenerateDiagonals(position, 1).Concat(GenerateOrthogonals(position, 1));
+                return Move.GenerateDiagonals(position, 1)
+                    .Concat(Move.GenerateOrthogonals(position, 1))
+                    .Select(x=>x.End);
             }
             return Enumerable.Empty<Position>();
-        }
-
-        private IEnumerable<Position> GenerateOrthogonals(Position position, int distance)
-        {
-            var result = new List<Position>();
-            for (int i = 0; i < distance; i++)
-            {
-                int offset = i + 1;
-                result.Add(new Position(position.Column.Add(offset), position.Row + offset));
-                result.Add(new Position(position.Column.Add(-offset), position.Row + offset));
-                result.Add(new Position(position.Column.Add(-offset), position.Row - offset));
-                result.Add(new Position(position.Column.Add(offset), position.Row - offset));
-            }
-            return result;
-        }
-
-        private IEnumerable<Position> GenerateDiagonals(Position position, int distance)
-        {
-            var result = new List<Position>();
-            for (int i = 0; i < distance; i++)
-            {
-                int offset = i + 1;
-                result.Add(new Position(position.Column.Add(offset), position.Row));
-                result.Add(new Position(position.Column, position.Row + offset));
-                result.Add(new Position(position.Column.Add(-offset), position.Row));
-                result.Add(new Position((position.Column), position.Row - offset));
-            }
-            return result;
         }
     }
 }

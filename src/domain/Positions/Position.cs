@@ -9,7 +9,6 @@ namespace Checkmate.Detector.Domain.Positions
         
         public Position(string column, int row):this((Columns)Enum.Parse(typeof(Columns), column, true), row)
         {
-
         }
         public Position(Columns column, int row) => (Column, Row) = (column, row);
         
@@ -24,13 +23,18 @@ namespace Checkmate.Detector.Domain.Positions
         
         public bool IsInFrontOf(Position other) =>
             Row > other.Row;
-        
+
+        public Position ColumnAdd(int offset)
+            => new Position(Column.Add(offset), Row);
+        public Position RowAdd(int offset)
+            => new Position(Column, Row + offset);
         public int GetDistance(Position other)
         {
             if(IsInDiagonalTo(other))
             {
                 return Math.Abs(GetDistance(Row, other.Row));
             }
+            
             var columnDistance = GetDistance(Column, other.Column);
             var result = Math.Sqrt(
                 Math.Pow((float)columnDistance, 2) +
