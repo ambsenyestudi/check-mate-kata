@@ -8,16 +8,16 @@ namespace Checkmate.Detector.Unit.Test
     public class GameServiceShould
     {
         private readonly GameService gameService;
-        private readonly GameLayout GAME_LAYOUT;
+        private readonly BoardLayout GAME_LAYOUT;
         private readonly Mock<IGameRepository> gameRepository;
         private readonly GameId GAME_ID = new GameId(new Guid("03c9aedb-d728-4f90-8f8f-80c1348b144a"));
         private readonly string[] pieces = new string[] { "Pd6", "Ke8" };
         public GameServiceShould()
         {
-            GAME_LAYOUT = new GameLayout(GAME_ID, pieces);
+            GAME_LAYOUT = new BoardLayout(GAME_ID, pieces);
             
             gameRepository = new Mock<IGameRepository>();
-            gameRepository.Setup(x => x.Add(It.IsAny<GameLayout>())).Returns(GAME_ID);
+            gameRepository.Setup(x => x.Add(It.IsAny<BoardLayout>())).Returns(GAME_ID);
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             
             gameService = new GameService(gameRepository.Object);            
@@ -28,7 +28,7 @@ namespace Checkmate.Detector.Unit.Test
         {
             
             var gameId = gameService.Load("Pd6", "Ke8");
-            gameRepository.Verify(x => x.Add(It.IsAny<GameLayout>()));
+            gameRepository.Verify(x => x.Add(It.IsAny<BoardLayout>()));
             Assert.Equal(GAME_ID, gameId);
         }
 
@@ -44,7 +44,7 @@ namespace Checkmate.Detector.Unit.Test
         [Fact]
         public void Move_Piece()
         {
-            var expected = new GameLayout(GAME_ID, new string[] { "Pd7", "Ke8" });
+            var expected = new BoardLayout(GAME_ID, new string[] { "Pd7", "Ke8" });
 
             var gameId = gameService.Load("Pd6", "Ke8");
             

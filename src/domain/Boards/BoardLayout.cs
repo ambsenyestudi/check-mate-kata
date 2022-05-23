@@ -1,18 +1,17 @@
 ﻿using Checkmate.Detector.Domain.Pieces;
 using Checkmate.Detector.Domain.Positions;
-using System;
 using System.Linq;
 
 namespace Checkmate.Detector.Domain.Game
 {
-    public record GameLayout
+    public record BoardLayout
     {
-        public static GameLayout Empty { get; } = new GameLayout(GameId.Empty, PieceCollection.Empty);
+        public static BoardLayout Empty { get; } = new BoardLayout(GameId.Empty, PieceCollection.Empty);
 
         public GameId GameId { get; set; }
         private PieceCollection pieces { get; }
 
-        public GameLayout(GameId gameId, PieceCollection pieces) {
+        public BoardLayout(GameId gameId, PieceCollection pieces) {
             GameId = gameId;
             this.pieces = pieces;
         }
@@ -20,7 +19,7 @@ namespace Checkmate.Detector.Domain.Game
         public string[] GetPieces() =>
             pieces.Pieces.Select(x=>x.ToString()).ToArray();
 
-        public GameLayout(GameId gameId, string[] pieces):this(gameId, new PieceCollection(pieces))
+        public BoardLayout(GameId gameId, string[] pieces):this(gameId, new PieceCollection(pieces))
         {            
         }
 
@@ -30,8 +29,8 @@ namespace Checkmate.Detector.Domain.Game
         public Piece GetKing() =>
             pieces.GetPiece(PieceKind.King);
 
-        public GameLayout Move(Move move) =>
-            new GameLayout(GameId, pieces.MovePieceAt(move));
+        public BoardLayout Move(Move move) =>
+            new BoardLayout(GameId, pieces.MovePieceAt(move));
 
         public Piece GetPieceAt(Position position) =>
             pieces.GetPieceAt(position);

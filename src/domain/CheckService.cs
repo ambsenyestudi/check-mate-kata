@@ -27,7 +27,7 @@ namespace Checkmate.Detector.Domain
         }
 
 
-        public bool IsPathBlocked(Piece attackPiece, Piece king, GameLayout gameLayout)
+        public bool IsPathBlocked(Piece attackPiece, Piece king, BoardLayout gameLayout)
         {
             if (attackPiece.Kind is PieceKind.Pawn ||
                 attackPiece.Kind is PieceKind.Knight)
@@ -63,7 +63,7 @@ namespace Checkmate.Detector.Domain
             return isCheck;
         }
 
-        private bool IsCheck(GameLayout gameLayout, Piece king)
+        private bool IsCheck(BoardLayout gameLayout, Piece king)
         {
             var pieces = gameLayout.GetPieces();
             var canKill = pieces.Where(x => !x.Equals(king))

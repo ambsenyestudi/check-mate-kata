@@ -1,9 +1,11 @@
-﻿namespace Checkmate.Detector.Domain.Game
+﻿using Checkmate.Detector.Domain.Boards;
+
+namespace Checkmate.Detector.Domain.Game
 {
     public interface IGameRepository
     {
-        GameId Add(GameLayout gameLayout);
-        GameLayout GetBy(GameId gameId);
-        void Replace(GameLayout gameLayout);
+        GameId Add(BoardLayout gameLayout);
+        BoardLayout GetBy(GameId gameId);
+        void Replace(BoardLayout gameLayout);
     }
 }

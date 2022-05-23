@@ -4,22 +4,22 @@ namespace Checkmate.Detector.Domain.Game
 {
     public class GameRepository : IGameRepository
     {
-        public Dictionary<GameId, GameLayout> Cache { get; } = new Dictionary<GameId, GameLayout>();
-        public GameId Add(GameLayout gameLayout)
+        public Dictionary<GameId, BoardLayout> Cache { get; } = new Dictionary<GameId, BoardLayout>();
+        public GameId Add(BoardLayout gameLayout)
         {
             if(gameLayout.GameId == GameId.Empty)
             {
                 //todo fix pi
-                gameLayout = new GameLayout(GameId.Create(), gameLayout.GetPieces());
+                gameLayout = new BoardLayout(GameId.Create(), gameLayout.GetPieces());
             }
             Cache.Add(gameLayout.GameId, gameLayout);
             return gameLayout.GameId;
         }
 
-        public GameLayout GetBy(GameId gameId) =>
+        public BoardLayout GetBy(GameId gameId) =>
             Cache[gameId];
 
-        public void Replace(GameLayout gameLayout) =>
+        public void Replace(BoardLayout gameLayout) =>
             Cache[gameLayout.GameId] = gameLayout;
     }
 }

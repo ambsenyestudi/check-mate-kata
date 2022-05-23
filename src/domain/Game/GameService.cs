@@ -13,8 +13,8 @@ namespace Checkmate.Detector.Domain.Game
 
         public GameId Load(params string[] pieces)
         {
-            var gameId = gameRepository.Add(new GameLayout(GameId.Empty, pieces));
-            return gameRepository.GetBy(gameId) == GameLayout.Empty
+            var gameId = gameRepository.Add(new BoardLayout(GameId.Empty, pieces));
+            return gameRepository.GetBy(gameId) == BoardLayout.Empty
                 ? GameId.Empty
                 : gameId;
         }

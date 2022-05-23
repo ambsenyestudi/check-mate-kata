@@ -6,7 +6,6 @@ using Checkmate.Detector.Domain.Positions;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace Checkmate.Detector.Unit.Test
@@ -17,13 +16,13 @@ namespace Checkmate.Detector.Unit.Test
         private readonly Mock<IGameRepository> gameRepository;
         private readonly Mock<IPathCalculationService> pathCalculationService;
         private readonly Mock<IBoardService> boardService;
-        private GameLayout GAME_LAYOUT;
+        private BoardLayout GAME_LAYOUT;
         private readonly GameId GAME_ID = new GameId(new Guid("03c9aedb-d728-4f90-8f8f-80c1348b144a"));
         private readonly string[] NO_KILLING_PIECES = new string[] { "Pd6", "Ke8" };
 
         public CheckServiceShould()
         {
-            GAME_LAYOUT = new GameLayout(GAME_ID, NO_KILLING_PIECES);
+            GAME_LAYOUT = new BoardLayout(GAME_ID, NO_KILLING_PIECES);
 
             gameRepository = new Mock<IGameRepository>();
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
@@ -42,7 +41,7 @@ namespace Checkmate.Detector.Unit.Test
         [InlineData("Pd7", "Ke8")]
         public void Tell_When_Piece_Checks_King(string piece, string king)
         {
-            GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { piece, king });
+            GAME_LAYOUT = new BoardLayout(GAME_ID, new string[] { piece, king });
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             Assert.True(checkService.IsCheck(GAME_ID));
         }
@@ -58,7 +57,7 @@ namespace Checkmate.Detector.Unit.Test
         [InlineData("Ne8", "Kd6")]
         public void Tell_When_Knight_Checks_King(string knight, string king)
         {
-            GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { knight, king });
+            GAME_LAYOUT = new BoardLayout(GAME_ID, new string[] { knight, king });
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             Assert.True(checkService.IsCheck(GAME_ID));
         }
@@ -69,7 +68,7 @@ namespace Checkmate.Detector.Unit.Test
         public void Ignore_Check_When_Bishop_To_King_Is_Blocked(string piece, string blockingPiece, string king)
         {
             
-            GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { piece, blockingPiece, king });
+            GAME_LAYOUT = new BoardLayout(GAME_ID, new string[] { piece, blockingPiece, king });
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             pathCalculationService.Setup(x => x.GetPath(It.IsAny<Move>()))
                 .Returns(PositionFromPiece(blockingPiece));
@@ -86,7 +85,7 @@ namespace Checkmate.Detector.Unit.Test
         [InlineData("Ra2", "Rb1", "Ka8")]
         public void Detect_Checkmate_When_At_Killing_Range(string kingRook, string queenRook, string king)
         {
-            GAME_LAYOUT = new GameLayout(GAME_ID, new string[] { kingRook, queenRook, king });
+            GAME_LAYOUT = new BoardLayout(GAME_ID, new string[] { kingRook, queenRook, king });
             gameRepository.Setup(x => x.GetBy(GAME_ID)).Returns(GAME_LAYOUT);
             boardService.Setup(x => x.GetPossibleMoves(Piece.FromString(king)))
                 .Returns(
