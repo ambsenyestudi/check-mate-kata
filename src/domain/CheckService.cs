@@ -66,6 +66,10 @@ namespace Checkmate.Detector.Domain
         private bool IsCheck(GameLayout gameLayout, Piece king)
         {
             var pieces = gameLayout.GetPieces();
+            var canKill = pieces.Where(x => !x.Equals(king))
+                .Select(x => Piece.FromString(x))
+                .Where(at => at.CanKill(king));
+            var blocked = canKill.Where(at => IsPathBlocked(at, king, gameLayout));
             return pieces
                 .Where(x => !x.Equals(king))
                 .Select(x => Piece.FromString(x))

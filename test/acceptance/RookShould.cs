@@ -78,6 +78,8 @@ namespace Checkmate.Detector.Acceptance.Test
 
         [Theory]
         [InlineData("Rh2", "Rb1", "Ka8", "a2")]
+        [InlineData("Rh2", "Rg7", "Kc8", "h8")]
+        [InlineData("Ra3", "Rg7", "Kh5", "h3")]
         public void Detect_Checkmate_When_Moved_At_Killing_Range(string kingRook, string queenRook, string king, string endPos)
         {
             var gameId = gameService.Load(kingRook, queenRook, king);

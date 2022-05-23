@@ -14,8 +14,13 @@ namespace Checkmate.Detector.Domain
                 return Enumerable.Empty<Position>();
             }
 
+            var (column, row) = FigureVector(move, distance);
+            return FigureInBetweens(move, distance, column, row);
+        }
+
+        private static IEnumerable<Position> FigureInBetweens(Move move, int distance, int column, int row)
+        {
             var inBetweenDistnace = distance - 1;
-            var (column, row) = FigureVector(move, inBetweenDistnace);
             var result = new List<Position>();
             for (int i = 0; i < inBetweenDistnace; i++)
             {
